@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Oumar Zeini">
+    <title>Trivia Game</title>
+    <link rel="icon" href="/images/logo.jpg">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script defer type="module" src="/js/main.js"></script>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><img src="/images/logo.jpg" alt="app logo" class="logo_img"></li>
+                <li><span class="big_letter">T</span>rivia <span class="brown">Cafe</span></li>
+            </ul>
+        </nav>
+    </header>
+
+    <p class="deem mark">By Omar zeini</p>
+
+    <main>
+        <h1 class="title">Trivia Game</h1>
+
+        <div class="score_Time_container ">
+            <p id="displayScore" class="score score_time">Score : <span id="score_counter">0</span></p>
+            <p id="time_counter" class="time score_time">Time Spent : 00 : 00</p>
+        </div>
+
+        <p id="feedback" class="feedback"></p>
+
+        <section class="game_box">
+
+            <p id="questionsCounter" class="questions-counter"></p>
+
+            <h2 id="questionText" class="questions"></h2>
+
+            <div id="questionsContainer" class="options_box"> 
+            </div>
+           
+        </section>
+
+        <section class="finalScore_box none">
+
+        </section>
+    </main>
+
+    
+</body>
+</html>
