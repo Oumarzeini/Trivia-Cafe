@@ -8,7 +8,7 @@ import { allQuestions } from "./questions.js";
 
    menuIcon.addEventListener("click", () => {
     menuContainer.classList.toggle("open");
-    // menuContainer.classList.toggle("block");
+    menuIcon.classList.toggle("fa-xmark")
    })
 }
 

@@ -96,37 +96,11 @@ nav ul {
 }
 
 .menu_icon {
-        height: 6px;
-        width: 48px;
-        background-color: white;
-        position: relative;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-
-:is(.menu_icon:hover) .menu_icon, .menu_icon::before, .menu_icon::after {
-    background-color: lightgray;
+    font-size: 3rem;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-    .menu_icon::before {
-        content: '';
-        position: absolute;
-        background-color: white;
-        height: 6px;
-        width: 45px;
-        transform: translateX(0) translateY(-12px);
-    }
-
-    .menu_icon::after {
-        content: '';
-        position: absolute;
-        height: 6px;
-        width: 45px;
-        background-color: white;
-        transform: translateY(12px);
-    }
-
-     
 
     .menu_container {
         background-color: rgba(0, 0, 0, 0.753);
@@ -364,35 +338,11 @@ main {
         padding-top: 10px;
     }
 
-    .menu_icon {
-        height: 6px;
-        width: 48px;
-        background-color: white;
-        position: relative;
-        margin-right: 10px;
+    .awards_container {
+        font-size: 1.2rem;
     }
 
-    .menu_icon::before {
-        content: '';
-        position: absolute;
-        background-color: white;
-        height: 6px;
-        width: 42px;
-        transform: translateX(0) translateY(-12px);
-    }
-
-    .menu_icon::after {
-        content: '';
-        position: absolute;
-        height: 6px;
-        width: 42px;
-        background-color: white;
-        transform: translateY(12px);
-    }
-
-     :is(.menu_icon:focus-within) .menu_icon::after {
-        transform: translateX(-21px) rotate(45deg);
-    }
+    
 
     .menu_container {
         background-color: rgba(0, 0, 0, 0.753);
