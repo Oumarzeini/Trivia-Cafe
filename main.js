@@ -1,5 +1,20 @@
 import { allQuestions } from "./questions.js";
 
+// Handle Menu toggling
+
+ const showMenu = () => {
+   const menuIcon = document.getElementById("menu_icon");
+   const menuContainer = document.getElementById("menu_container");
+
+   menuIcon.addEventListener("click", () => {
+    menuContainer.classList.toggle("open");
+    // menuContainer.classList.toggle("block");
+   })
+}
+
+showMenu();
+
+// Handle Timer
 const displayTime = document.querySelector("#time_counter");
 let timer;
 let secondsEllapsed = 0;
@@ -13,6 +28,7 @@ function updateDisplay() {
     displayTime.textContent = "Time Spent " + formatTime(secondsEllapsed);
 }
 
+// Handle Questions
 const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--){
         const j = Math.floor(Math.random() * (i+1));
