@@ -50,7 +50,7 @@
 /* || General */
 
 html {
-    background-image: url(images/texture\ BG.jpg);
+    background-image: url(/images/texture\ BG.jpg);
     background-position: center;
     background-size: cover;
 }
@@ -148,14 +148,21 @@ nav ul {
     }
 
     .menu_container ol li {
-        border-bottom: 1px solid #b87d1a;
+        /* border-bottom: 1px solid #b87d1a; */
         font-size: 22px;
+        padding: 10px;
+        border: 1px solid #b87d1a;
+        border-radius: 10px;
+        cursor: pointer;
     }
 
-    .selected {
-        color: #e8980d;
-        
+    .menu_container ol li:active {
+        transform: scale(0.9);
     }
+
+.selected {
+    color: #e8980d;
+}
 
 main {
     display: flex;
@@ -349,7 +356,7 @@ main {
         backdrop-filter: blur(5px);
         color: white;
         width: 0;
-        height: 500px;
+        height: 600px;
         display: flex;
         padding: 0;
         flex-direction: column;
@@ -357,7 +364,7 @@ main {
         position: absolute;
         font-family: system-ui;
         font-weight: 600;
-        overflow: hidden;
+        overflow: scroll;
         transition: width 0.3s ease;
     }
 
@@ -420,12 +427,14 @@ main {
     }
 
     .questions-counter {
-    color: rgb(248, 211, 211);
+    color: rgba(248, 211, 211, 0.677);
     }
 
     .questions {
         margin: 1rem;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+        color:rgb(248, 211, 211);
+        line-height: 33px;
     }
 
     .options_box {

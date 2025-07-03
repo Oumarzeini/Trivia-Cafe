@@ -1,7 +1,6 @@
-import { allQuestions } from "./questions.js";
+import { triviaQuestions, allQuestions } from "./questions.js";
 
 // Handle Menu toggling
-
  const showMenu = () => {
    const menuIcon = document.getElementById("menu_icon");
    const menuContainer = document.getElementById("menu_container");
@@ -38,8 +37,9 @@ const shuffle = (array) => {
     return array;
 }
 
-const currentRoundQuestions = shuffle([...allQuestions]).slice(0,5);
-
+let currentRoundQuestions = shuffle([...allQuestions]).slice(0,5);
+let currentCategory = "all";
+let currentLevel = "beginner";
 let currentQuestionsIndex = 0;
 let trackQuestionNumber = 1;
 let score = 0;
@@ -53,8 +53,100 @@ const initializeTimer = () => {
 
 initializeTimer();
 
+// Handle the Category
+
+    const allQuestionsCategory = document.getElementById("all");
+    const scienceQuestionsCategory = document.getElementById("science");
+    const historyQuestionsCategory = document.getElementById("history");
+    const footballQuestionsCategory = document.getElementById("football");
+
+
+
+    allQuestionsCategory.addEventListener("click", (el) => {
+        setCategoryQuestions("all");
+        el.target.classList.add("selected");
+        scienceQuestionsCategory.classList.remove("selected");
+        historyQuestionsCategory.classList.remove("selected");
+        footballQuestionsCategory.classList.remove("selected")
+    });
+    scienceQuestionsCategory.addEventListener("click", (el) => {
+        setCategoryQuestions("science");
+        el.target.classList.add("selected");
+        allQuestionsCategory.classList.remove("selected");
+        historyQuestionsCategory.classList.remove("selected");
+        footballQuestionsCategory.classList.remove("selected")
+        });
+    historyQuestionsCategory.addEventListener("click", (el) => {
+        setCategoryQuestions("history");
+        el.target.classList.add("selected");
+        scienceQuestionsCategory.classList.remove("selected");
+        allQuestionsCategory.classList.remove("selected");
+        footballQuestionsCategory.classList.remove("selected")
+        });
+    footballQuestionsCategory.addEventListener("click", (el) => {
+        setCategoryQuestions("football");
+        el.target.classList.add("selected");
+        scienceQuestionsCategory.classList.remove("selected");
+        historyQuestionsCategory.classList.remove("selected");
+        allQuestionsCategory.classList.remove("selected")
+        });
+
+// Handle Level 
+
+const beginnerLevel = document.getElementById("beginnerLevel");
+const interLevel = document.getElementById("interLevel");
+const advancedLevel = document.getElementById("advancedLevel");
+
+beginnerLevel.addEventListener("click", (el) => {
+    setCategoryQuestions(currentCategory, "beginner");
+    el.target.classList.add("selected")
+    interLevel.classList.remove("selected")
+    advancedLevel.classList.remove("selected")
+})
+interLevel.addEventListener("click", (el) => {
+    setCategoryQuestions(currentCategory, "intermediate");
+    el.target.classList.add("selected")
+    beginnerLevel.classList.remove("selected")
+    advancedLevel.classList.remove("selected")
+})
+advancedLevel.addEventListener("click", (el) => {
+    setCategoryQuestions(currentCategory, "advanced");
+    el.target.classList.add("selected")
+    beginnerLevel.classList.remove("selected")
+    interLevel.classList.remove("selected")
+})
+
+
+
+
+const setCategoryQuestions = (category, level = "beginner") => {
+    currentCategory = category;
+    currentLevel = level;
+
+
+    if (category === "all"){
+        currentRoundQuestions = shuffle([...allQuestions]).slice(0,5);
+    } else {
+        let selectedCategory = triviaQuestions[category][level];
+        currentRoundQuestions = shuffle([...selectedCategory]).slice(0,5);
+    }
+
+    score = 0;
+    currentQuestionsIndex = 0;
+    trackQuestionNumber = 1;
+    clearInterval(timer);
+    secondsEllapsed = 0;
+    initializeTimer();
+    displayNextQuestion();
+}
+    
+
+ 
+
 
 const displayNextQuestion = () => {
+
+
     if (currentQuestionsIndex < currentRoundQuestions.length) {
         const question = currentRoundQuestions[currentQuestionsIndex];
 
@@ -62,7 +154,7 @@ const displayNextQuestion = () => {
         const questionText = document.getElementById("questionText");
         const questionsContainer = document.getElementById("questionsContainer");
         const feedback = document.getElementById("feedback");
-        console.log(questionText);
+        
         const questionsCounter = document.getElementById("questionsCounter");
         const displayScore = document.getElementById("displayScore");
 
@@ -122,7 +214,13 @@ const resetGame = () => {
     secondsEllapsed = 0;
     initializeTimer();
 
-    const newQuestions = shuffle([...allQuestions]).slice(0,5);
+    let newQuestions ;
+    if (currentCategory === "all") {
+        newQuestions = shuffle([...allQuestions]).slice(0,5);
+    }else {
+        newQuestions = shuffle([...triviaQuestions[currentCategory][currentLevel]]);
+    }
+
     currentRoundQuestions.length = 0;
     currentRoundQuestions.push(...newQuestions);
 
