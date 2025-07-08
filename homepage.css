@@ -1,0 +1,381 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Utility */
+
+button {
+    border: none;
+    outline: none;
+}
+
+button:hover {
+    transform: scale(0.9);
+}
+
+button:active {
+    transform: scale(0.9) ;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.TC {
+    font-size: 2rem;
+}
+.brown {
+    color: #b87d1a;
+}
+
+.big_letter {
+    font-size : 3rem;
+    color:  #b87d1a; /*  #87d; */
+}
+
+.deem {
+    color: rgb(226, 225, 225);
+}
+
+.mark {
+    margin: 1rem;
+    font-size: large;
+    font-family: cursive;
+}
+
+.logo_img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.spacer {
+    height: 50vh;
+}
+
+
+
+html {
+    background-image: url(images/coolBG.png);
+    background-position: center;
+    background-size: cover;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Fjalla One", sans-serif;
+    background-color: white;
+    letter-spacing: 2px;
+    line-height: 3rem;
+    background-color: rgba(0, 0, 0, 0.566);
+    color: white;
+    margin: 0;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.406);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.nav_container {
+    width: clac(100% - 300px);
+    height: 60px;
+}
+
+.links_container {
+    width: 300px;
+    height: 60px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.links_container a {
+    font-size: 1.4rem;
+    color: rgb(228, 137, 26);
+    text-decoration: none;
+}
+
+.play {
+    width: 150px;
+    background-color: #b87d1a;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+.play a {
+    color: white;
+    text-decoration: none;
+}
+
+
+nav {
+    width: 100%;
+    height: 100%;
+}
+
+nav ul {
+    position: relative;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin-left: 20px;
+    gap: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: larger;
+}
+
+main {
+    margin: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    font-family: monospace;
+}
+
+main image {
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+main h1, h2 {
+    font-family: monospace;
+    color: #b87d1a;
+}
+
+main h1 {
+    font-size: clamp(4rem, 6rem, 8rem);
+    margin: 30px;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+    font-weight: 800;
+    line-height: 80px;
+}
+
+main h2 {
+    font-size: clamp(2rem, 4rem, 5rem);
+    margin: auto;
+    margin-left: 30px;
+    font-weight: 700;
+    margin-bottom: 10rem;
+    line-height: 5rem;
+}
+
+
+.title {
+    width: fit-content;
+    background-color: #b87d1a;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: grid;
+    place-content: center;
+    font-size: 2rem;
+     margin: auto;
+    margin-bottom: 2rem;
+   
+}
+
+.demo_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #b87e1a6f;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    height: 400px;
+    cursor: pointer;
+   
+}
+
+.demo_container:hover {
+    margin: auto;
+    background-color: #b87d1a;
+    transition: all 0.3s ease;
+}
+
+.demo_container image {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.demo_container h3 {
+    font-family: monospace;
+    font-size: 2rem;
+}
+
+.play_now {
+    font-size: 3rem;
+    width: 400px;
+    height: 150px;
+    margin: auto;
+    border-radius: 30px;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    background-color: #b87d1a;
+    padding: 10px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+.play_now a {
+    text-decoration: none;
+    color:white;
+    font-family: system-ui;
+    font-weight: 600;
+}
+
+.awards_section {
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0.27);
+    border-radius: 15px;
+    width: 90%;
+    margin-left: 30px;
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0;
+}
+
+.awards_section h1 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.awards_section h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+}
+
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100%);
+    transition: all 1s;
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+/* Mobile Devices */
+
+@media (max-width: 450px) {
+
+    .big_letter {
+        font-size: 30px;
+    }
+
+    nav ul {
+       position: relative;
+       display: flex;
+       align-items: center;
+       list-style-type: none;
+       margin-left: 10px;
+       font-family: 'Courier New', Courier, monospace;
+       font-weight: bold;
+       letter-spacing: 1px;
+       font-size: 1rem;
+    }
+
+
+    .links_container {
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .links_container a {
+        font-size: 1rem;
+    }
+
+    .play {
+        height: 30px;
+        width: 100px;
+    }
+
+    main h1 {
+        margin-top: 2rem;
+        font-family: system-ui;
+        font-size: 5rem;
+        line-height: 80px;
+    }
+
+    main h2 {
+        font-size: 25px;
+        line-height: 30px;
+        margin-bottom: 2rem;
+    }
+
+    .title {
+        font-size: 15px;
+        line-height: 25px;
+    }
+
+    .demo_container {
+        height: 150px;
+        width: 100%;
+    }
+
+    .demo_container h3 {
+        font-size: 20px;
+        line-height: 25px;
+        gap: 10px;
+    }
+
+    .demo_images  {
+        width: 100px;
+        height: 100px;
+    }
+
+    .play_now {
+        font-size: 20px;
+        width: 200px;
+        height: 60px;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .awards_section {
+        margin-left: 10px;
+    }
+
+    .awards_section h1 {
+        font-size: 40px;
+        margin-bottom: 1rem;
+    }
+
+    .awards_section h2 {
+        font-size: 20px;
+        line-height: 25px;
+    }
+
+}
+

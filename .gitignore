@@ -1,0 +1,17 @@
+# Ignore VS Code settings
+.vscode/
+
+# Ignore user-specific folders accidentally added
+/dbclient/
+*.jar
+*.exe
+*.log
+*.zip
+
+# Ignore global VS Code extensions folder (if somehow added)
+/Users/HP/.vscode/
+
+# Optional: Ignore node_modules or Python files if applicable
+node_modules/
+__pycache__/
+*.pyc

@@ -8,6 +8,10 @@
 }
 
 /* || Utility */
+.purple {
+    color: rgb(243, 102, 243);
+}
+
 .TC {
     font-size: 2rem;
 }
@@ -37,7 +41,7 @@
     display: inline-block;
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
     display: none;
 }
 
@@ -50,7 +54,7 @@
 /* || General */
 
 html {
-    background-image: url(images/texture\ BG.jpg);
+    background-image: url(images/coolBG.png);
     background-position: center;
     background-size: cover;
 }
@@ -107,7 +111,7 @@ nav ul {
         backdrop-filter: blur(5px);
         color: white;
         width: 0;
-        height: 800px;
+        max-height: 750px;
         display: flex;
         padding: 0;
         flex-direction: column;
@@ -115,9 +119,23 @@ nav ul {
         position: absolute;
         font-family: system-ui;
         font-weight: 600;
-        overflow: scroll;
+        overflow: auto;
         transition: width 0.3s ease;
+        border-bottom-left-radius: 15px;
     }
+
+    .menu_container::-webkit-scrollbar {
+        width: 6px;
+        height: 10px;
+    }
+
+    .menu_container::-webkit-scrollbar-thumb {
+        background-color: #b87d1a;
+        border-radius: 4px;
+    }
+
+    
+
 
     .menu_container.open {
         width:400px;
@@ -189,6 +207,36 @@ main {
     text-align: center;
 }
 
+/* MAIN AREA */
+
+.game_bar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.coins, .stars {
+    height: 60px;
+    width: 150px;
+    background-color: brown;
+    top: 100px;
+    left: 10px;
+    border-radius: 10px;
+    color: rgb(211, 206, 206);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    gap: 10px;
+}
+
+.stars {
+    top: 170px;
+    background-color: brown;
+    color: gold;
+}
+
 .score_Time_container {
     display: flex;
     flex-flow: row wrap;
@@ -198,10 +246,72 @@ main {
 }
 
 .score_time {
+    height: 60px;
+    width: 150px;
     font-size: clamp(14px, 20px, 2.2rem);
-    padding: 15px;
-    border: 1px solid rgb(147, 147, 147);
+    padding: 10px;
+    background-color: brown;
+    color: lightgreen;
     border-radius: 10px;
+    display: grid;
+    place-content: center;
+}
+
+.perfect_round {
+    width: 0;
+    height: 200px;
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    padding: 0;
+    top: 100px;
+    left: 0;
+    font-family: monospace;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    animation: BGeffect 3s ease-in-out infinite alternate-reverse;
+    overflow: hidden;
+    transition: width 0.4s ease;
+}
+
+.openPR {
+    width: 50%;
+    padding: 20px;
+}
+
+.close_PR {
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+@keyframes BGeffect {
+    10% {
+        background-color: green;
+    }
+    50% {
+        background-color: rgb(176, 55, 55);
+    }
+    90% {
+        background-color: rgb(144, 144, 25);
+    }
+}
+
+.progress_container {
+    width: 30%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.459);
+    margin: auto;
+    border-radius: 10px;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: purple;
+    border-radius: 10px;
+    transition: width 0.3s ease;
 }
 
 .feedback {
@@ -323,9 +433,23 @@ main {
     display: block;
 }
 
-/* Media Qeuries */
+
+
+/* IPADS */
+
+@media (max-width: 800px) {
+    .progress_container{
+        width: 60%;
+    }
+}
+
+/* Media Qeuries | MOBILE DEVICES */
 
 @media (max-width: 450px) {
+
+    ::-webkit-scrollbar{
+        display: none;
+    }
    
     .big_letter{
         font-size: 2rem;
@@ -366,7 +490,15 @@ main {
         font-weight: 600;
         overflow: scroll;
         transition: width 0.3s ease;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+
     }
+
+     .menu_container::-webkit-scrollbar {
+       display: none;
+    }
+
 
     .menu_container.open {
         width:100%;
@@ -409,8 +541,81 @@ main {
     .title {
         font-size: 3rem;
     }
+
+    .coins, .stars {
+        height: 40px;
+        width: 100px;
+        top: 80px;
+        font-size: 1.1rem;
+    }
+
+    .stars {
+        left: 110px;
+    }
+
+    .perfect_round {
+        width: 0;
+        height: 100px;
+        background-color: green;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: absolute;
+        padding: 0;
+        top: 70px;
+        left: 0;
+        font-family: monospace;
+        font-size:1rem;
+        border-radius: 10px;
+        animation: BGeffect 3s ease-in-out infinite alternate-reverse;
+        overflow: hidden;
+        transition: width 0.4s ease;
+    }
+
+    .openPR {
+        width: 100%;
+    }
+
+    .close_PR {
+        font-size: 2rem;
+    }
+
+    .progress_container {
+        width: 60%;
+    }
+
+    /* .progress_container {
+        width: 50%;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.459);
+        margin: auto;
+        border-radius: 10px;
+    } */
+
+    .score_Time_container {
+        top: 80px;
+        right: 10px;
+        gap: 5px;
+    }
+
+    .game_bar {
+        flex-flow: row wrap;
+        gap: 10px;
+    }
+
+    .score_time {
+        height: 40px;
+        width: 90px;
+        font-size: 1rem;
+        padding: 10px;
+        background-color: brown;
+        color: lightgreen;
+        border-radius: 10px;
+    }
+
+
     .game_box {
-        height: 450px;
+        height: 480px;
         width: 300px;
         margin: 0;
         margin-top: 1rem;
@@ -452,6 +657,11 @@ main {
         color: rgb(107, 105, 105);
         min-width: 200px;
         min-height: 60px; 
+    }
+
+    .options:active {
+        -webkit-transform : scale(0.9);
+        transform: scale(0.9);
     }
 
     .none {

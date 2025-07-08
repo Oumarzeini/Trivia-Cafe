@@ -1,5 +1,11 @@
 import { triviaQuestions, allQuestions } from "./questions.js";
 
+const clickSound = new Audio("sounds/click.mp3");
+const perfectRoundSound = new Audio("sounds/perfect_round.mp3");
+
+clickSound.load();
+perfectRoundSound.load();
+
 // Handle Menu toggling
  const showMenu = () => {
    const menuIcon = document.getElementById("menu_icon");
@@ -9,7 +15,7 @@ import { triviaQuestions, allQuestions } from "./questions.js";
     menuContainer.classList.toggle("open");
     menuIcon.classList.toggle("fa-xmark")
    })
-}
+}  
 
 showMenu();
 
@@ -43,6 +49,8 @@ let currentLevel = "beginner";
 let currentQuestionsIndex = 0;
 let trackQuestionNumber = 1;
 let score = 0;
+let coinsCount = 0;
+let starsCount = 0;
 
 const initializeTimer = () => {
     timer = setInterval(()=> {
@@ -119,7 +127,7 @@ advancedLevel.addEventListener("click", (el) => {
 
 
 
-const setCategoryQuestions = (category, level = "beginner") => {
+const setCategoryQuestions = (category, level = currentLevel) => {
     currentCategory = category;
     currentLevel = level;
 
@@ -131,6 +139,7 @@ const setCategoryQuestions = (category, level = "beginner") => {
         currentRoundQuestions = shuffle([...selectedCategory]).slice(0,5);
     }
 
+    progress.style.width = `0%`;
     score = 0;
     currentQuestionsIndex = 0;
     trackQuestionNumber = 1;
@@ -153,39 +162,59 @@ const displayNextQuestion = () => {
         
         const questionText = document.getElementById("questionText");
         const questionsContainer = document.getElementById("questionsContainer");
-        const feedback = document.getElementById("feedback");
+        //const feedback = document.getElementById("feedback");
         
         const questionsCounter = document.getElementById("questionsCounter");
         const displayScore = document.getElementById("displayScore");
 
+        const coins = document.getElementById("coins");
+        const stars = document.getElementById("stars");
+        const progressBar = document.getElementById("progress");
+        
+
         questionsCounter.textContent = `Question ${trackQuestionNumber} of 5`;
-        displayScore.textContent = `Score : ${score}`;
         questionText.textContent = question.inquiry;
         questionsContainer.innerHTML = "";
-        feedback.textContent = "";
+        
+        //feedback.textContent = "";
 
         question.options.forEach(option => {
             const button = document.createElement("button");
             button.textContent = option;
             button.classList.add("options");
             button.onclick = () => {
+                    clickSound.pause();
+                    clickSound.currentTime = 0;
+                    clickSound.volume = 1.0;
+                    clickSound.play();
+
                 if (option === question.answer) {
-                    feedback.textContent = "Excellent job! ✅";
-                    feedback.style.color = "green";
+                    // feedback.textContent = "Excellent job! ✅";
+                    // feedback.style.color = "green";
                     button.style.backgroundColor= "lightgreen";
                     score++;
+                    coinsCount+= 10;
                 }else {
-                    feedback.textContent = "Try Again ❌";
-                    feedback.style.color = "red";
-                    button.style.backgroundColor = "salmon";
+                    // feedback.textContent = "Try Again ❌";
+                    // feedback.style.color = "red";
+                     button.style.backgroundColor = "salmon";
                 }
 
                 document.querySelectorAll(".options").forEach(btn => btn.disabled = true);
 
+                displayScore.textContent = `Score : ${score}`;
+                coins.textContent = coinsCount;
+                
+
+
                 setTimeout(()=> {
                     currentQuestionsIndex++;
                     trackQuestionNumber++;
-                    displayNextQuestion();
+
+                    const progress = Math.min(100, (currentQuestionsIndex  / currentRoundQuestions.length) * 100);
+                    progressBar.style.width = `${progress}%`;
+
+                    displayNextQuestion()
                 },1000) 
             };
 
@@ -197,7 +226,7 @@ const displayNextQuestion = () => {
 
     } else {
         clearInterval(timer);
-        feedback.textContent = "";
+       // feedback.textContent = "";
         showScore();
         
     }
@@ -208,21 +237,24 @@ displayNextQuestion();
 
 
 const resetGame = () => {
+    progress.style.width = `0%`;
     score = 0;
     currentQuestionsIndex= 0;
     trackQuestionNumber = 1;
     secondsEllapsed = 0;
     initializeTimer();
 
+    displayScore.textContent = `Score : ${score}`;
+
+
     let newQuestions ;
     if (currentCategory === "all") {
         newQuestions = shuffle([...allQuestions]).slice(0,5);
     }else {
-        newQuestions = shuffle([...triviaQuestions[currentCategory][currentLevel]]);
+        newQuestions = shuffle([...triviaQuestions[currentCategory][currentLevel]]).slice(0,5);
     }
 
-    currentRoundQuestions.length = 0;
-    currentRoundQuestions.push(...newQuestions);
+    currentRoundQuestions = newQuestions;
 
     const finalScoreBox = document.querySelector(".finalScore_box");
 
@@ -231,27 +263,43 @@ const resetGame = () => {
 
     document.querySelector(".game_box").classList.remove("none");
 
-    const timeAndScoreContainer = document.querySelector(".score_Time_container");
-    timeAndScoreContainer.style.visibility = "visible";
+    // const timeAndScoreContainer = document.querySelector(".score_Time_container");
+    // timeAndScoreContainer.style.visibility = "visible";
 
     displayNextQuestion();
 }
 
 const showScore = ()=> {
+    if (score === currentRoundQuestions.length) {
+        perfectRoundSound.pause();
+        perfectRoundSound.currentTime = 0;
+        perfectRoundSound.volumn = 1.0;
+        perfectRoundSound.play();
+         starsCount++;
+         stars.textContent = starsCount;
+        document.getElementById("perfect_round").classList.add("openPR");
+
+        document.getElementById("close_PR").onclick = () => {
+            document.getElementById("perfect_round").classList.remove("openPR");
+        }
+    }
+
+
     document.querySelector(".game_box").classList.add("none");
 
-    const timeAndScoreContainer = document.querySelector(".score_Time_container");
-    timeAndScoreContainer.style.visibility = "hidden";
+    //const timeAndScoreContainer = document.querySelector(".score_Time_container");
+    //timeAndScoreContainer.style.visibility = "hidden";
 
     const finalScoreBox = document.querySelector(".finalScore_box");
 
     finalScoreBox.classList.add("block");
 
-
+     
     const finalScoreHeader = document.createElement("h3");
     finalScoreHeader.classList.add("finalScoreHeader");
     finalScoreHeader.innerHTML = `Game Over ! Your Score : 
     <p> ${score} / 5 </p>`;
+    
     
     
 
@@ -261,6 +309,9 @@ const showScore = ()=> {
 
     playAgainBtn.classList.add("playAgainBtn");
     playAgainBtn.onclick = () => {
+        clickSound.volume = 1.0;
+        clickSound.currentTime = 0;
+        clickSound.play();
         resetGame();
     };
     playAgainBtn.textContent = "Play Again";
@@ -274,6 +325,6 @@ const showScore = ()=> {
 
     finalScoreBox.appendChild(finalScoreHeader);
     finalScoreBox.appendChild(timeSpent);
-    finalScoreBox.appendChild(playAgainBtn)
+    finalScoreBox.appendChild(playAgainBtn);
 }
 
