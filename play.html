@@ -1,108 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Oumar Zeini">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Oumar Zeini" />
     <title>Trivia Game</title>
-    <link rel="icon" href="images/logo.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-    <link rel="stylesheet" href="play.css">
+    <link rel="icon" href="images/logo.jpg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="play.css" />
     <script defer type="module" src="main.js"></script>
-</head>
-<body>
-
+  </head>
+  <body id="body">
     <header>
-        <nav>
-            <ul>
-                <li><img src="images/logo.jpg" alt="app logo" class="logo_img"></li>
-                <li><span class="big_letter">T</span>rivia <span class="brown">Café</span></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><img src="images/logo.jpg" alt="app logo" class="logo_img" /></li>
+          <li>
+            <span class="big_letter">T</span>rivia
+            <span class="brown">Café</span>
+          </li>
+        </ul>
+      </nav>
 
-
-       <i id="menu_icon" class="fa-solid fa-bars menu_icon"></i>
-        
-
+      <i id="menu_icon" class="fa-solid fa-bars menu_icon"></i>
     </header>
 
     <div id="menu_container" class="menu_container">
+      <p class="level">LEVEL :</p>
 
-        <p class="level">LEVEL :</p>
-            
-                <ol class="level_options">
-                    <li id="beginnerLevel" class="selected"> Beginner</li>
-                    <li id="interLevel"> Intermediate</li>
-                    <li id="advancedLevel"> Advanced</li>
-                </ol>
+      <ol class="level_options">
+        <li id="beginnerLevel" class="selected">Beginner</li>
+        <li id="interLevel">Intermediate</li>
+        <li id="advancedLevel">Advanced</li>
+      </ol>
 
-        <p class="category">CATEGORY :</p>       
+      <p class="category">CATEGORY :</p>
 
-                <ol class="category_options">
-                    <li id="all" class="selected"> All</li>
-                    <li id="history"> History</li>
-                    <li id="science"> Science</li>
-                    <li id="football"> Football</li>
-                </ol>
+      <ol class="category_options">
+        <li id="all" class="selected">All</li>
+        <li id="history">History</li>
+        <li id="science">Science</li>
+        <li id="football">Football</li>
+      </ol>
 
-        <p class="awards">AWARDS :</p>
-            <div class="awards_container">
-                <p> <span class="purple">Log In</span> or <span class="purple">Sign Up</span> to save your awards</p>
-            </div>
-        
-    
-     </div>
- 
+      <p class="awards">AWARDS :</p>
+      <div class="awards_container">
+        <p>
+          <span class="purple">Log In</span> or
+          <span class="purple">Sign Up</span> to save your awards
+        </p>
+      </div>
+    </div>
+
     <!-- <p class="deem mark">By Omar zeini</p> -->
 
     <main>
-
-        <section class="game_bar">
-
-        
-
-        <div class="coins"><i class="fa-solid fa-coins"></i> : <p id="coins"> 0</p> </div>
-
-        <div class="stars"> <i class="fa-solid fa-star"></i> : <p id="stars"> 0</p></div>
-      
-
-        <div class="score_Time_container ">
-            <p id="displayScore" class="score score_time"><span id="score_counter">Score  : 0</span></p>
-
-            <!-- <p id="time_counter" class="time score_time">Time : 00 : 00</p> -->
+      <section class="game_bar">
+        <div class="coins">
+          <i class="fa-solid fa-coins"></i> :
+          <p id="coins">0</p>
         </div>
 
-        </section>
-
-        <!-- <p id="feedback" class="feedback"></p> -->
-
-        <div id="perfect_round" class="perfect_round">
-            <h2>Perfect Round 🫡 <br> One Star Awarded 🎊 </h2>
-            <i id="close_PR" class="fa-solid fa-square-xmark close_PR"></i>
+        <div class="stars">
+          <i class="fa-solid fa-star"></i> :
+          <p id="stars">0</p>
         </div>
 
-        <div class="progress_container">
-            <div id="progress" class="progress"></div>
+        <div class="score_Time_container">
+          <p id="displayScore" class="score score_time">
+            <span id="score_counter">Score : 0</span>
+          </p>
+
+          <!-- <p id="time_counter" class="time score_time">Time : 00 : 00</p> -->
         </div>
+      </section>
 
-        <section class="game_box">
+      <!-- <p id="feedback" class="feedback"></p> -->
 
-            <p id="questionsCounter" class="questions-counter"></p>
+      <div id="perfect_round" class="perfect_round">
+        <h2>
+          Perfect Round 🫡 <br />
+          One Star Awarded 🎊
+        </h2>
+        <i id="close_PR" class="fa-solid fa-square-xmark close_PR"></i>
+      </div>
 
-            <h2 id="questionText" class="questions"></h2>
+      <div class="progress_container">
+        <div id="progress" class="progress"></div>
+      </div>
 
-            <div id="questionsContainer" class="options_box"> 
-            </div>
-           
-        </section>
+      <section class="game_box">
+        <p id="questionsCounter" class="questions-counter"></p>
 
-        <section class="finalScore_box none">
+        <h2 id="questionText" class="questions"></h2>
 
-        </section>
+        <div id="questionsContainer" class="options_box"></div>
+      </section>
+
+      <section class="finalScore_box none"></section>
     </main>
 
     <div class="spacer"></div>
-
-    
-</body>
+  </body>
 </html>

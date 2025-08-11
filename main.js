@@ -7,15 +7,16 @@ clickSound.load();
 perfectRoundSound.load();
 
 // Handle Menu toggling
- const showMenu = () => {
-   const menuIcon = document.getElementById("menu_icon");
-   const menuContainer = document.getElementById("menu_container");
+const showMenu = () => {
+  const menuIcon = document.getElementById("menu_icon");
+  const menuContainer = document.getElementById("menu_container");
 
-   menuIcon.addEventListener("click", () => {
+  menuIcon.addEventListener("click", () => {
     menuContainer.classList.toggle("open");
-    menuIcon.classList.toggle("fa-xmark")
-   })
-}  
+    menuIcon.classList.toggle("fa-xmark");
+    document.getElementById("body").classList.toggle("open_menu");
+  });
+};
 
 showMenu();
 
@@ -24,26 +25,26 @@ const displayTime = document.querySelector("#time_counter");
 let timer;
 let secondsEllapsed = 0;
 const formatTime = (seconds) => {
-    const mins = String(Math.floor( seconds / 60)).padStart(2,"0");
-    const secs = String(seconds % 60).padStart(2,"0");
-    return `${mins} : ${secs}`
-}
+  const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const secs = String(seconds % 60).padStart(2, "0");
+  return `${mins} : ${secs}`;
+};
 
 function updateDisplay() {
-    displayTime.textContent = "Time Spent " + formatTime(secondsEllapsed);
+  displayTime.textContent = "Time Spent " + formatTime(secondsEllapsed);
 }
 
 // Handle Questions
 const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i+1));
-       [ array[i], array[j]] = [array[j], array[i]];
-    }
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 
-    return array;
-}
+  return array;
+};
 
-let currentRoundQuestions = shuffle([...allQuestions]).slice(0,5);
+let currentRoundQuestions = shuffle([...allQuestions]).slice(0, 5);
 let currentCategory = "all";
 let currentLevel = "beginner";
 let currentQuestionsIndex = 0;
@@ -53,278 +54,254 @@ let coinsCount = 0;
 let starsCount = 0;
 
 const initializeTimer = () => {
-    timer = setInterval(()=> {
-            secondsEllapsed++;
-            updateDisplay();
-        }, 1000);
-}
+  timer = setInterval(() => {
+    secondsEllapsed++;
+    updateDisplay();
+  }, 1000);
+};
 
 initializeTimer();
 
 // Handle the Category
 
-    const allQuestionsCategory = document.getElementById("all");
-    const scienceQuestionsCategory = document.getElementById("science");
-    const historyQuestionsCategory = document.getElementById("history");
-    const footballQuestionsCategory = document.getElementById("football");
+const allQuestionsCategory = document.getElementById("all");
+const scienceQuestionsCategory = document.getElementById("science");
+const historyQuestionsCategory = document.getElementById("history");
+const footballQuestionsCategory = document.getElementById("football");
 
+allQuestionsCategory.addEventListener("click", (el) => {
+  setCategoryQuestions("all");
+  el.target.classList.add("selected");
+  scienceQuestionsCategory.classList.remove("selected");
+  historyQuestionsCategory.classList.remove("selected");
+  footballQuestionsCategory.classList.remove("selected");
+});
+scienceQuestionsCategory.addEventListener("click", (el) => {
+  setCategoryQuestions("science");
+  el.target.classList.add("selected");
+  allQuestionsCategory.classList.remove("selected");
+  historyQuestionsCategory.classList.remove("selected");
+  footballQuestionsCategory.classList.remove("selected");
+});
+historyQuestionsCategory.addEventListener("click", (el) => {
+  setCategoryQuestions("history");
+  el.target.classList.add("selected");
+  scienceQuestionsCategory.classList.remove("selected");
+  allQuestionsCategory.classList.remove("selected");
+  footballQuestionsCategory.classList.remove("selected");
+});
+footballQuestionsCategory.addEventListener("click", (el) => {
+  setCategoryQuestions("football");
+  el.target.classList.add("selected");
+  scienceQuestionsCategory.classList.remove("selected");
+  historyQuestionsCategory.classList.remove("selected");
+  allQuestionsCategory.classList.remove("selected");
+});
 
-
-    allQuestionsCategory.addEventListener("click", (el) => {
-        setCategoryQuestions("all");
-        el.target.classList.add("selected");
-        scienceQuestionsCategory.classList.remove("selected");
-        historyQuestionsCategory.classList.remove("selected");
-        footballQuestionsCategory.classList.remove("selected")
-    });
-    scienceQuestionsCategory.addEventListener("click", (el) => {
-        setCategoryQuestions("science");
-        el.target.classList.add("selected");
-        allQuestionsCategory.classList.remove("selected");
-        historyQuestionsCategory.classList.remove("selected");
-        footballQuestionsCategory.classList.remove("selected")
-        });
-    historyQuestionsCategory.addEventListener("click", (el) => {
-        setCategoryQuestions("history");
-        el.target.classList.add("selected");
-        scienceQuestionsCategory.classList.remove("selected");
-        allQuestionsCategory.classList.remove("selected");
-        footballQuestionsCategory.classList.remove("selected")
-        });
-    footballQuestionsCategory.addEventListener("click", (el) => {
-        setCategoryQuestions("football");
-        el.target.classList.add("selected");
-        scienceQuestionsCategory.classList.remove("selected");
-        historyQuestionsCategory.classList.remove("selected");
-        allQuestionsCategory.classList.remove("selected")
-        });
-
-// Handle Level 
+// Handle Level
 
 const beginnerLevel = document.getElementById("beginnerLevel");
 const interLevel = document.getElementById("interLevel");
 const advancedLevel = document.getElementById("advancedLevel");
 
 beginnerLevel.addEventListener("click", (el) => {
-    setCategoryQuestions(currentCategory, "beginner");
-    el.target.classList.add("selected")
-    interLevel.classList.remove("selected")
-    advancedLevel.classList.remove("selected")
-})
+  setCategoryQuestions(currentCategory, "beginner");
+  el.target.classList.add("selected");
+  interLevel.classList.remove("selected");
+  advancedLevel.classList.remove("selected");
+});
 interLevel.addEventListener("click", (el) => {
-    setCategoryQuestions(currentCategory, "intermediate");
-    el.target.classList.add("selected")
-    beginnerLevel.classList.remove("selected")
-    advancedLevel.classList.remove("selected")
-})
+  setCategoryQuestions(currentCategory, "intermediate");
+  el.target.classList.add("selected");
+  beginnerLevel.classList.remove("selected");
+  advancedLevel.classList.remove("selected");
+});
 advancedLevel.addEventListener("click", (el) => {
-    setCategoryQuestions(currentCategory, "advanced");
-    el.target.classList.add("selected")
-    beginnerLevel.classList.remove("selected")
-    interLevel.classList.remove("selected")
-})
-
-
-
+  setCategoryQuestions(currentCategory, "advanced");
+  el.target.classList.add("selected");
+  beginnerLevel.classList.remove("selected");
+  interLevel.classList.remove("selected");
+});
 
 const setCategoryQuestions = (category, level = currentLevel) => {
-    currentCategory = category;
-    currentLevel = level;
+  currentCategory = category;
+  currentLevel = level;
 
+  if (category === "all") {
+    currentRoundQuestions = shuffle([...allQuestions]).slice(0, 5);
+  } else {
+    let selectedCategory = triviaQuestions[category][level];
+    currentRoundQuestions = shuffle([...selectedCategory]).slice(0, 5);
+  }
 
-    if (category === "all"){
-        currentRoundQuestions = shuffle([...allQuestions]).slice(0,5);
-    } else {
-        let selectedCategory = triviaQuestions[category][level];
-        currentRoundQuestions = shuffle([...selectedCategory]).slice(0,5);
-    }
-
-    progress.style.width = `0%`;
-    score = 0;
-    currentQuestionsIndex = 0;
-    trackQuestionNumber = 1;
-    clearInterval(timer);
-    secondsEllapsed = 0;
-    initializeTimer();
-    displayNextQuestion();
-}
-    
-
- 
-
+  progress.style.width = `0%`;
+  score = 0;
+  currentQuestionsIndex = 0;
+  trackQuestionNumber = 1;
+  clearInterval(timer);
+  secondsEllapsed = 0;
+  initializeTimer();
+  displayNextQuestion();
+};
 
 const displayNextQuestion = () => {
+  if (currentQuestionsIndex < currentRoundQuestions.length) {
+    const question = currentRoundQuestions[currentQuestionsIndex];
 
+    const questionText = document.getElementById("questionText");
+    const questionsContainer = document.getElementById("questionsContainer");
+    //const feedback = document.getElementById("feedback");
 
-    if (currentQuestionsIndex < currentRoundQuestions.length) {
-        const question = currentRoundQuestions[currentQuestionsIndex];
+    const questionsCounter = document.getElementById("questionsCounter");
+    const displayScore = document.getElementById("displayScore");
 
-        
-        const questionText = document.getElementById("questionText");
-        const questionsContainer = document.getElementById("questionsContainer");
-        //const feedback = document.getElementById("feedback");
-        
-        const questionsCounter = document.getElementById("questionsCounter");
-        const displayScore = document.getElementById("displayScore");
+    const coins = document.getElementById("coins");
+    const stars = document.getElementById("stars");
+    const progressBar = document.getElementById("progress");
 
-        const coins = document.getElementById("coins");
-        const stars = document.getElementById("stars");
-        const progressBar = document.getElementById("progress");
-        
+    questionsCounter.textContent = `Question ${trackQuestionNumber} of 5`;
+    questionText.textContent = question.inquiry;
+    questionsContainer.innerHTML = "";
 
-        questionsCounter.textContent = `Question ${trackQuestionNumber} of 5`;
-        questionText.textContent = question.inquiry;
-        questionsContainer.innerHTML = "";
-        
-        //feedback.textContent = "";
+    //feedback.textContent = "";
 
-        question.options.forEach(option => {
-            const button = document.createElement("button");
-            button.textContent = option;
-            button.classList.add("options");
-            button.onclick = () => {
-                    clickSound.pause();
-                    clickSound.currentTime = 0;
-                    clickSound.volume = 1.0;
-                    clickSound.play();
+    question.options.forEach((option) => {
+      const button = document.createElement("button");
+      button.textContent = option;
+      button.classList.add("options");
+      button.onclick = () => {
+        clickSound.pause();
+        clickSound.currentTime = 0;
+        clickSound.volume = 1.0;
+        clickSound.play();
 
-                if (option === question.answer) {
-                    // feedback.textContent = "Excellent job! ✅";
-                    // feedback.style.color = "green";
-                    button.style.backgroundColor= "lightgreen";
-                    score++;
-                    coinsCount+= 10;
-                }else {
-                    // feedback.textContent = "Try Again ❌";
-                    // feedback.style.color = "red";
-                     button.style.backgroundColor = "salmon";
-                }
+        if (option === question.answer) {
+          // feedback.textContent = "Excellent job! ✅";
+          // feedback.style.color = "green";
+          button.style.backgroundColor = "lightgreen";
+          score++;
+          coinsCount += 10;
+        } else {
+          // feedback.textContent = "Try Again ❌";
+          // feedback.style.color = "red";
+          button.style.backgroundColor = "salmon";
+        }
 
-                document.querySelectorAll(".options").forEach(btn => btn.disabled = true);
+        document
+          .querySelectorAll(".options")
+          .forEach((btn) => (btn.disabled = true));
 
-                displayScore.textContent = `Score : ${score}`;
-                coins.textContent = coinsCount;
-                
+        displayScore.textContent = `Score : ${score}`;
+        coins.textContent = coinsCount;
 
+        setTimeout(() => {
+          currentQuestionsIndex++;
+          trackQuestionNumber++;
 
-                setTimeout(()=> {
-                    currentQuestionsIndex++;
-                    trackQuestionNumber++;
+          const progress = Math.min(
+            100,
+            (currentQuestionsIndex / currentRoundQuestions.length) * 100
+          );
+          progressBar.style.width = `${progress}%`;
 
-                    const progress = Math.min(100, (currentQuestionsIndex  / currentRoundQuestions.length) * 100);
-                    progressBar.style.width = `${progress}%`;
+          displayNextQuestion();
+        }, 1000);
+      };
 
-                    displayNextQuestion()
-                },1000) 
-            };
-
-            questionsContainer.appendChild(button)
-        });
-
-        
-        
-
-    } else {
-        clearInterval(timer);
-       // feedback.textContent = "";
-        showScore();
-        
-    }
-}
+      questionsContainer.appendChild(button);
+    });
+  } else {
+    clearInterval(timer);
+    // feedback.textContent = "";
+    showScore();
+  }
+};
 
 displayNextQuestion();
 
-
-
 const resetGame = () => {
-    progress.style.width = `0%`;
-    score = 0;
-    currentQuestionsIndex= 0;
-    trackQuestionNumber = 1;
-    secondsEllapsed = 0;
-    initializeTimer();
+  progress.style.width = `0%`;
+  score = 0;
+  currentQuestionsIndex = 0;
+  trackQuestionNumber = 1;
+  secondsEllapsed = 0;
+  initializeTimer();
 
-    displayScore.textContent = `Score : ${score}`;
+  displayScore.textContent = `Score : ${score}`;
 
+  let newQuestions;
+  if (currentCategory === "all") {
+    newQuestions = shuffle([...allQuestions]).slice(0, 5);
+  } else {
+    newQuestions = shuffle([
+      ...triviaQuestions[currentCategory][currentLevel],
+    ]).slice(0, 5);
+  }
 
-    let newQuestions ;
-    if (currentCategory === "all") {
-        newQuestions = shuffle([...allQuestions]).slice(0,5);
-    }else {
-        newQuestions = shuffle([...triviaQuestions[currentCategory][currentLevel]]).slice(0,5);
-    }
+  currentRoundQuestions = newQuestions;
 
-    currentRoundQuestions = newQuestions;
+  const finalScoreBox = document.querySelector(".finalScore_box");
 
-    const finalScoreBox = document.querySelector(".finalScore_box");
+  finalScoreBox.innerHTML = "";
+  finalScoreBox.classList.remove("block");
 
-    finalScoreBox.innerHTML = "";
-    finalScoreBox.classList.remove("block");
+  document.querySelector(".game_box").classList.remove("none");
 
-    document.querySelector(".game_box").classList.remove("none");
+  // const timeAndScoreContainer = document.querySelector(".score_Time_container");
+  // timeAndScoreContainer.style.visibility = "visible";
 
-    // const timeAndScoreContainer = document.querySelector(".score_Time_container");
-    // timeAndScoreContainer.style.visibility = "visible";
+  displayNextQuestion();
+};
 
-    displayNextQuestion();
-}
+const showScore = () => {
+  if (score === currentRoundQuestions.length) {
+    perfectRoundSound.pause();
+    perfectRoundSound.currentTime = 0;
+    perfectRoundSound.volumn = 1.0;
+    perfectRoundSound.play();
+    starsCount++;
+    stars.textContent = starsCount;
+    document.getElementById("perfect_round").classList.add("openPR");
 
-const showScore = ()=> {
-    if (score === currentRoundQuestions.length) {
-        perfectRoundSound.pause();
-        perfectRoundSound.currentTime = 0;
-        perfectRoundSound.volumn = 1.0;
-        perfectRoundSound.play();
-         starsCount++;
-         stars.textContent = starsCount;
-        document.getElementById("perfect_round").classList.add("openPR");
-
-        document.getElementById("close_PR").onclick = () => {
-            document.getElementById("perfect_round").classList.remove("openPR");
-        }
-    }
-
-
-    document.querySelector(".game_box").classList.add("none");
-
-    //const timeAndScoreContainer = document.querySelector(".score_Time_container");
-    //timeAndScoreContainer.style.visibility = "hidden";
-
-    const finalScoreBox = document.querySelector(".finalScore_box");
-
-    finalScoreBox.classList.add("block");
-
-     
-    const finalScoreHeader = document.createElement("h3");
-    finalScoreHeader.classList.add("finalScoreHeader");
-    finalScoreHeader.innerHTML = `Game Over ! Your Score : 
-    <p> ${score} / 5 </p>`;
-    
-    
-    
-
-    // creating the button 
-
-    const playAgainBtn = document.createElement("button");
-
-    playAgainBtn.classList.add("playAgainBtn");
-    playAgainBtn.onclick = () => {
-        clickSound.volume = 1.0;
-        clickSound.currentTime = 0;
-        clickSound.play();
-        resetGame();
+    document.getElementById("close_PR").onclick = () => {
+      document.getElementById("perfect_round").classList.remove("openPR");
     };
-    playAgainBtn.textContent = "Play Again";
+  }
 
-    // creating the time displayer
+  document.querySelector(".game_box").classList.add("none");
 
-    const timeSpent = document.createElement("p");
-    timeSpent.innerHTML = `Time Spent : ${formatTime(secondsEllapsed)}`;
-    timeSpent.classList.add("finalScoreHeader");
+  //const timeAndScoreContainer = document.querySelector(".score_Time_container");
+  //timeAndScoreContainer.style.visibility = "hidden";
 
+  const finalScoreBox = document.querySelector(".finalScore_box");
 
-    finalScoreBox.appendChild(finalScoreHeader);
-    finalScoreBox.appendChild(timeSpent);
-    finalScoreBox.appendChild(playAgainBtn);
-}
+  finalScoreBox.classList.add("block");
 
+  const finalScoreHeader = document.createElement("h3");
+  finalScoreHeader.classList.add("finalScoreHeader");
+  finalScoreHeader.innerHTML = `Game Over ! Your Score : 
+    <p> ${score} / 5 </p>`;
+
+  // creating the button
+
+  const playAgainBtn = document.createElement("button");
+
+  playAgainBtn.classList.add("playAgainBtn");
+  playAgainBtn.onclick = () => {
+    clickSound.volume = 1.0;
+    clickSound.currentTime = 0;
+    clickSound.play();
+    resetGame();
+  };
+  playAgainBtn.textContent = "Play Again";
+
+  // creating the time displayer
+
+  const timeSpent = document.createElement("p");
+  timeSpent.innerHTML = `Time Spent : ${formatTime(secondsEllapsed)}`;
+  timeSpent.classList.add("finalScoreHeader");
+
+  finalScoreBox.appendChild(finalScoreHeader);
+  finalScoreBox.appendChild(timeSpent);
+  finalScoreBox.appendChild(playAgainBtn);
+};
